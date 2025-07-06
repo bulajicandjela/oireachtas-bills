@@ -16,6 +16,7 @@ import { BillStatusFilter } from './components/BillStatusFilter';
 import { BillTableBody } from './components/BillTableBody';
 import { useFavourites } from './hooks/useFavorites';
 import { BillTableHeader } from './components/BillTableHeader';
+import { usePagination } from './hooks/usePagination';
 
 const columns = [
   { label: 'Bill Number', key: 'bill_no' },
@@ -25,12 +26,12 @@ const columns = [
 ];
 
 export const BillsTable = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filterStatus, setFilterStatus] = useState('');
-  const { favourites, favouriteBills, toggleFavourite } = useFavourites();
   const [activeTab, setActiveTab] = useState(0);
   const [selectedBill, setSelectedBill] = useState<Bill | null>(null);
+  const { favourites, favouriteBills, toggleFavourite } = useFavourites();
+  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage, resetPage } =
+    usePagination();
 
   const skip = activeTab === 0 ? page * rowsPerPage : 0;
   const limit = activeTab === 0 ? rowsPerPage : 10000;
@@ -63,7 +64,7 @@ export const BillsTable = () => {
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
-    setPage(0);
+    resetPage();
     setFilterStatus('');
   };
 
@@ -75,17 +76,8 @@ export const BillsTable = () => {
     setSelectedBill(null);
   }, []);
 
-  const handleChangePage = useCallback((_event: unknown, newPage: number) => {
-    setPage(newPage);
-  }, []);
-
-  const handleChangeRowsPerPage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  }, []);
-
   useEffect(() => {
-    setPage(0);
+    resetPage;
   }, [filterStatus]);
 
   if (isLoading) {
