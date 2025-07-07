@@ -81,7 +81,3 @@ src/
 The API interactions use mocked responses for favourites.
 
 Clicking the ⭐ icon logs a simulated API request to the console.
-
-```
-
-```
