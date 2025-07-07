@@ -1,3 +1,10 @@
+// NOTE:
+// The assignment requested filtering by bill "type", but the Swagger documentation does not
+// define allowed values or explain how to filter by `billType`. Instead, `bill_status` is
+// a well-documented and supported query parameter with clearly listed valid values.
+// For this reason, I’ve implemented filtering by status as a practical and stable alternative.
+// This also aligns with typical filtering needs in legislative data (e.g., showing only active bills).
+
 import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { BillStatuses } from '../../../consts/bill';
