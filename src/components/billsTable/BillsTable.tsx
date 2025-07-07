@@ -29,8 +29,27 @@ const filterBarSx = {
   borderBottom: 1,
   borderColor: 'divider',
   display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'end',
+  flexDirection: { xs: 'column', sm: 'row' },
+  justifyContent: { xs: 'flex-start', sm: 'space-between' },
+  alignItems: { xs: 'stretch', sm: 'end' },
+  gap: 2,
+  px: { xs: 1, sm: 0 },
+};
+
+const paginationBoxSx = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minWidth: 600,
+  bgcolor: 'background.paper',
+  borderTop: 1,
+  borderColor: 'divider',
+};
+
+const paginationSx = {
+  bgcolor: 'transparent',
+  minWidth: 0,
+  border: 0,
 };
 
 export const BillsTable = () => {
@@ -107,9 +126,9 @@ export const BillsTable = () => {
   return (
     <>
       <Box sx={filterBarSx}>
-        <Tabs value={activeTab} onChange={handleTabChange}>
-          <Tab label="All Bills" />
-          <Tab label="Favourited Bills" />
+        <Tabs value={activeTab} onChange={handleTabChange} sx={{ minHeight: 40 }}>
+          <Tab label="All Bills" sx={{ minWidth: 100 }} />
+          <Tab label="Favourited Bills" sx={{ minWidth: 100 }} />
         </Tabs>
         <BillStatusFilter filterStatus={filterStatus} onFilterChange={setFilterStatus} />
       </Box>
@@ -120,28 +139,30 @@ export const BillsTable = () => {
         </Box>
       ) : (
         <>
-          <Table>
-            <TableHead>
-              <BillTableHeader columns={columns} />
-            </TableHead>
-
-            <BillTableBody
-              bills={displayedBills}
-              favourites={favourites}
-              toggleFavourite={toggleFavourite}
-              onRowClick={handleRowClick}
-            />
-          </Table>
-
-          <TablePagination
-            component="div"
-            count={paginationCount}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            sx={{ bgcolor: 'background.paper', borderTop: 1, borderColor: 'divider' }}
-          />
+          <Box sx={{ overflowX: 'auto' }}>
+            <Table sx={{ minWidth: 600 }}>
+              <TableHead>
+                <BillTableHeader columns={columns} />
+              </TableHead>
+              <BillTableBody
+                bills={displayedBills}
+                favourites={favourites}
+                toggleFavourite={toggleFavourite}
+                onRowClick={handleRowClick}
+              />
+            </Table>
+            <Box sx={paginationBoxSx}>
+              <TablePagination
+                component="div"
+                count={paginationCount}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={paginationSx}
+              />
+            </Box>
+          </Box>
         </>
       )}
 
