@@ -25,6 +25,14 @@ const columns = [
   { label: 'Sponsor', key: 'sponsor' },
 ];
 
+const filterBarSx = {
+  borderBottom: 1,
+  borderColor: 'divider',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'end',
+};
+
 export const BillsTable = () => {
   const [filterStatus, setFilterStatus] = useState('');
   const [activeTab, setActiveTab] = useState(0);
@@ -98,14 +106,13 @@ export const BillsTable = () => {
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={filterBarSx}>
         <Tabs value={activeTab} onChange={handleTabChange}>
           <Tab label="All Bills" />
           <Tab label="Favourited Bills" />
         </Tabs>
+        <BillStatusFilter filterStatus={filterStatus} onFilterChange={setFilterStatus} />
       </Box>
-
-      <BillStatusFilter filterStatus={filterStatus} onFilterChange={setFilterStatus} />
 
       {noFavouriteBills ? (
         <Box sx={{ padding: 2 }}>

@@ -19,12 +19,16 @@ export const BillStatusFilter: React.FC<BillStatusFilterProps> = ({
   onFilterChange,
 }) => {
   return (
-    <FormControl fullWidth margin="normal">
-      <InputLabel id="bill-type-label">Filter by Bill Type</InputLabel>
+    <FormControl margin="normal" sx={{ minWidth: 180 }} size="small" variant="outlined">
+      <InputLabel id="bill-type-label" sx={{ top: '-1px' }}>
+        Filter by Bill Type
+      </InputLabel>
       <Select
         labelId="bill-type-label"
         value={filterStatus}
         onChange={(e) => onFilterChange(e.target.value)}
+        size="small"
+        label="Filter by Bill Type"
       >
         <MenuItem value="">
           <em>All</em>
