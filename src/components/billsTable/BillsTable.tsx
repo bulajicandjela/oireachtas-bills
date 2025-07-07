@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Table,
   TableHead,
@@ -123,6 +123,15 @@ export const BillsTable = () => {
     );
   }
 
+  const renderNoFavouritedBillsAlert = useMemo(
+    () => (
+      <Box sx={{ padding: 2 }}>
+        <Alert severity="info">You have no favourited bills for that category yet.</Alert>
+      </Box>
+    ),
+    []
+  );
+
   return (
     <>
       <Box sx={filterBarSx}>
@@ -134,9 +143,7 @@ export const BillsTable = () => {
       </Box>
 
       {noFavouriteBills ? (
-        <Box sx={{ padding: 2 }}>
-          <Alert severity="info">You have no favourited bills for that category yet.</Alert>
-        </Box>
+        renderNoFavouritedBillsAlert
       ) : (
         <>
           <Box sx={{ overflowX: 'auto' }}>
