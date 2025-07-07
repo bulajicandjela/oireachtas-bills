@@ -10,6 +10,14 @@ type BillTableBodyProps = {
   onRowClick: (bill: Bill) => void;
 };
 
+const rowStyles = {
+  cursor: 'pointer',
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: 'action.selected',
+  },
+} as const;
+
 export const BillTableBody: React.FC<BillTableBodyProps> = ({
   bills,
   favourites,
@@ -22,18 +30,7 @@ export const BillTableBody: React.FC<BillTableBodyProps> = ({
       const fields = [bill.billNo, bill.billType, bill.billStatus, bill.sponsor];
 
       return (
-        <TableRow
-          key={`${bill.id}-${index}`}
-          hover
-          sx={{
-            cursor: 'pointer',
-            transition: 'background-color 0.3s ease',
-            '&:hover': {
-              backgroundColor: 'action.selected',
-            },
-          }}
-          onClick={() => onRowClick(bill)}
-        >
+        <TableRow key={`${bill.id}-${index}`} hover sx={rowStyles} onClick={() => onRowClick(bill)}>
           {fields.map((field, index) => (
             <TableCell key={index}>{field}</TableCell>
           ))}
