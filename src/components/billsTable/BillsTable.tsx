@@ -107,6 +107,15 @@ export const BillsTable = () => {
     resetPage;
   }, [filterStatus]);
 
+  const renderNoFavouritedBillsAlert = useMemo(
+    () => (
+      <Box sx={{ padding: 2 }}>
+        <Alert severity="info">You have no favourited bills for that category yet.</Alert>
+      </Box>
+    ),
+    []
+  );
+
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', padding: 4 }}>
@@ -122,15 +131,6 @@ export const BillsTable = () => {
       </Box>
     );
   }
-
-  const renderNoFavouritedBillsAlert = useMemo(
-    () => (
-      <Box sx={{ padding: 2 }}>
-        <Alert severity="info">You have no favourited bills for that category yet.</Alert>
-      </Box>
-    ),
-    []
-  );
 
   return (
     <>
